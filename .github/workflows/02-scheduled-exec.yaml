@@ -14,28 +14,27 @@ on:
 # trabalhos/tarefas dentro do pipeline = jobs
 jobs:
   e2e-tests:
-
     # maquina qe o job vai executar
     runs-on: ubuntu-latest
 
     # passos do script de build
-    steps: 
+    steps:
       # clone do projeto
       - uses: actions/checkout@v4
 
-      # instalacao do node 
+      # instalacao do node
       - uses: actions/setup-node@v4
-        with: 
+        with:
           node-version: 22.x
 
       # instalacao do Yarn
       - name: Instalando Yarn
-        run: npm install -g yarn 
+        run: npm install -g yarn
 
       # instalacao das dependências
       - name: Instalando dependências
         run: yarn
-      
+
       # instalacao do Playwright
       - name: Instalando Playwright
         run: yarn playwright install
@@ -43,4 +42,3 @@ jobs:
       # executar os testes e2e
       - name: Executando Testes e2e
         run: yarn run e2e
-        

@@ -2,17 +2,17 @@
 
 name: 'Execução Integrada'
 
-on: 
+on:
   workflow_dispatch:
 
 jobs:
   inspecao:
     runs-on: ubuntu-latest
 
-    steps: 
+    steps:
       - uses: actions/checkout@v4
 
-      - name: Instalando Yarn 
+      - name: Instalando Yarn
         run: npm install -g yarn
 
       - name: Instalando dependências
@@ -24,14 +24,14 @@ jobs:
   unidade:
     runs-on: ubuntu-latest
 
-    steps: 
+    steps:
       - uses: actions/checkout@v4
 
-      - name: Instalando Yarn 
+      - name: Instalando Yarn
         run: npm install -g yarn
 
       - name: Instalando dependências
-        run: yarn    
+        run: yarn
 
       - name: Executando testes de unidade
         run: yarn test
@@ -39,23 +39,23 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
 
-    steps: 
+    steps:
       # clone do projeto
       - uses: actions/checkout@v4
 
-      # instalacao do node 
+      # instalacao do node
       - uses: actions/setup-node@v4
-        with: 
+        with:
           node-version: 22.x
 
       # instalacao do Yarn
       - name: Instalando Yarn
-        run: npm install -g yarn 
+        run: npm install -g yarn
 
       # instalacao das dependências
       - name: Instalando dependências
         run: yarn
-      
+
       # instalacao do Playwright
       - name: Instalando Playwright
         run: yarn playwright install
@@ -64,16 +64,16 @@ jobs:
       - name: Executando Testes e2e
         run: yarn run e2e
 
-      # relatórios  
+      # relatórios
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
-        with: 
+        with:
           name: report
           path: ./playwright-report
 
   deploy:
     runs-on: ubuntu-latest
 
-    steps: 
+    steps:
       - name: Simulação do deploy
         run: echo "Simulando o deploy com sucesso"
